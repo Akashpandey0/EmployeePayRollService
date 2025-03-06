@@ -10,6 +10,7 @@ import java.util.List;
 
 @Service
 public class EmployeeService {
+    // autowired added
     @Autowired
     private EmployeeRepository repository;
 
