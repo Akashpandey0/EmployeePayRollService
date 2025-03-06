@@ -1,5 +1,6 @@
 package com.example.employeepayrollapp.service;
 
+import com.example.employeepayrollapp.dto.EmployeeDTO;
 import com.example.employeepayrollapp.model.Employee;
 import com.example.employeepayrollapp.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import java.util.List;
 
 @Service
 public class EmployeeService {
-
     @Autowired
     private EmployeeRepository repository;
 
@@ -21,15 +21,16 @@ public class EmployeeService {
         return repository.findById(id).orElse(null);
     }
 
-    public Employee createEmployee(Employee employee) {
+    public Employee createEmployee(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee(employeeDTO);
         return repository.save(employee);
     }
 
-    public Employee updateEmployee(Long id, Employee updatedEmployee) {
+    public Employee updateEmployee(Long id, EmployeeDTO employeeDTO) {
         Employee existingEmployee = repository.findById(id).orElse(null);
         if (existingEmployee != null) {
-            existingEmployee.setName(updatedEmployee.getName());
-            existingEmployee.setSalary(updatedEmployee.getSalary());
+            existingEmployee.setName(employeeDTO.getName());
+            existingEmployee.setSalary(employeeDTO.getSalary());
             return repository.save(existingEmployee);
         }
         return null;

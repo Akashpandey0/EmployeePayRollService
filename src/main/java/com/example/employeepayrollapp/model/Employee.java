@@ -1,7 +1,7 @@
 package com.example.employeepayrollapp.model;
 
+import com.example.employeepayrollapp.dto.EmployeeDTO;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "employees")
@@ -10,18 +10,16 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Name is required")
     private String name;
-
-    @Min(value = 1000, message = "Salary must be greater than 1000")
     private double salary;
 
-    // Constructors
+    // Default Constructor
     public Employee() {}
 
-    public Employee(String name, double salary) {
-        this.name = name;
-        this.salary = salary;
+    // Constructor using EmployeeDTO
+    public Employee(EmployeeDTO employeeDTO) {
+        this.name = employeeDTO.getName();
+        this.salary = employeeDTO.getSalary();
     }
 
     // Getters and Setters
